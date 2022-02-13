@@ -2,42 +2,22 @@
 
 int main()
 {
-	int i, numero, divisores, multiplos[3];
-
-	for (i = 0; i < 3; i++)
-	{
-		multiplos[i] = 0;
-	}
+	int i, numero, divisor, multiplo;
 
 	printf("Numero: ");
 	scanf("%d", &numero);
 
-	divisores = 0;
-	i = numero;
-	while (divisores < 3)
+	divisor = 0;
+	for (i = numero; divisor < 1; i++)
 	{
-		if (i % 11 == 0 && multiplos[0] == 0)
+		if (i % 11 == 0 || i % 13 == 0 || i % 17 == 0)
 		{
-			multiplos[0] = i;
-			divisores++;
+			multiplo = i;
+			divisor++;
 		}
-
-		if (i % 13 == 0 && multiplos[1] == 0)
-		{
-			multiplos[1] = i;
-			divisores++;
-		}
-
-		if (i % 17 == 0 && multiplos[2] == 0)
-		{
-			multiplos[2] = i;
-			divisores++;
-		}
-
-		i++;
 	}
 
-	printf("primeiro multiplos (11,13,17): %d, %d, %d", multiplos[0], multiplos[1], multiplos[2]);
+	printf("Primeiro multiplo: %d", multiplo);
 
 	return 0;
 }
