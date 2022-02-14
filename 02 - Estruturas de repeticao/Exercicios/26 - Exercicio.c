@@ -2,22 +2,18 @@
 
 int main()
 {
-	int i, numero, divisor, multiplo;
+	int numero;
 
 	printf("Numero: ");
 	scanf("%d", &numero);
 
-	divisor = 0;
-	for (i = numero; divisor < 1; i++)
+	do
 	{
-		if (i % 11 == 0 || i % 13 == 0 || i % 17 == 0)
-		{
-			multiplo = i;
-			divisor++;
-		}
+		numero++;
 	}
+	while (numero % 11 && numero % 13 && numero % 17);
 
-	printf("Primeiro multiplo: %d", multiplo);
+	printf("Primeiro multiplo: %d", numero);
 
 	return 0;
 }
