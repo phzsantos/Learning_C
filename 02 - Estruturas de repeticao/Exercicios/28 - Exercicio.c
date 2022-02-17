@@ -12,7 +12,7 @@ int main()
 	for (i = 2; i <= numero; i++)
 	{
 		fatorial = i;
-		for (j = i; j > 0; j--)
+		for (j = i-1; j > 0; j--)
 		{
 			fatorial *= j;
 		}
