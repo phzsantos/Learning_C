@@ -17,9 +17,6 @@ int main()
 			fatorial *= j;
 		}
 
-	    printf("i: %d\n", i);
-	    printf("fatorial: %d\n", fatorial);
-
 		soma += (double) i/fatorial;
 	}
 
