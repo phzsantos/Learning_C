@@ -2,7 +2,7 @@
 
 int main()
 {
-	int i, j, valores[10], ordenado[10], menor;
+	int i, j, posicao_menor, menor, valores[10], ordenado[10];
 
 	for (i = 0; i < 10; i++)
 	{
@@ -18,12 +18,13 @@ int main()
 			if (valores[j] < menor)
 			{
 				menor = valores[j];
-
-				if (j-1 == i)
-				{
-					valores[i+1] = valores[i];
-				}
+				posicao_menor = j;
 			}
+		}
+
+		if (valores[i] != menor)
+		{
+			valores[posicao_menor] = valores[i];
 		}
 
 		ordenado[i] = menor;
