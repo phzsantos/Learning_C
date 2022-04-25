@@ -2,8 +2,8 @@
 
 int main()
 {
-	int i, j, notas[3], matricula[3];
-	char respostas[3][10], gabarito[10], percentual;
+	int i, j, percentual, notas[3], matricula[3];
+	char respostas[3][10], gabarito[10];
 
 	for (i = 0; i < 3; i++)
 	{
