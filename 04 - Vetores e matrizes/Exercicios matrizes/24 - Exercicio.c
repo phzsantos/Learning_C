@@ -2,7 +2,7 @@
 
 int main()
 {
-    int i, j, matriz[20][20];
+    int i, j, maior, produto, matriz[20][20];
 
     matriz[0][0] = 8;
     matriz[0][1] = 2;
@@ -424,14 +424,47 @@ int main()
     matriz[19][18] = 67;
     matriz[19][19] = 48;
 
+    maior = matriz[0][0] * matriz[0][1] * matriz[0][2] * matriz[0][3];
     for (i = 0; i < 20; i++)
     {
     	for (j = 0; j < 20; j++)
     	{
-    		printf("%d ", matriz[i][j]);
+    		if (i < 17)
+    		{
+				produto = matriz[i][j] * matriz[i+1][j] *  matriz[i+2][j] * matriz[i+3][j];
+                if (produto > maior)
+                {
+                	maior = produto;
+                }
+    		}
+            if (j > 2 && i < 17)
+            {
+                produto = matriz[i][j] * matriz[i+1][j-1] * matriz[i+2][j-2] * matriz[i+3][j-3];
+                if (produto > maior)
+                {
+                	maior = produto;
+                }
+            }
+            if (j < 17)
+            {
+            	produto = matriz[i][j] * matriz[i][j+1] * matriz[i][j+2] * matriz[i][j+3];
+                if (produto > maior)
+                {
+                	maior = produto;
+                }
+            }
+            if (j < 17 && i < 17)
+            {
+            	produto = matriz[i][j] * matriz[i+1][j+1] * matriz[i+2][j+2] * matriz[i+3][j+3];
+                if (produto > maior)
+                {
+                    maior = produto;
+                }
+            }
     	}
-    	printf("\n");
     }
+
+    printf("Maior: %d", maior);
 
     return 0;
 }
