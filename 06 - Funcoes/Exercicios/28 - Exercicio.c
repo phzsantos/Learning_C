@@ -20,30 +20,30 @@ double Fatorial(double numero)
 	return fatorial;
 }
 
-double Seno(double* angulo)
+double Cosseno(double* angulo)
 {
 	int i;
-	double seno;
+	double cosseno;
 
-	seno = 0;
+	cosseno = 0;
 	for (i = 0; i < 6; i++)
 	{
-		seno += pow(-1.0, i) * pow((*angulo), 2*i+1) / Fatorial(2*i+1);
+		cosseno += pow(-1, i) * pow((*angulo), 2*i) / Fatorial(2*i);
 	}
 
-	return seno;
+	return cosseno;
 }
 
 int main()
 {
-	double angulo, seno;
+	double angulo, cosseno;
 
 	printf("Angulo: ");
 	scanf("%lf", &angulo);
 
-	seno = Seno(&angulo);
+	cosseno = Cosseno(&angulo);
 
-	printf("Seno: %.2lf", seno);
+	printf("Cosseno: %.2lf", cosseno);
 
 	return 0;
 }

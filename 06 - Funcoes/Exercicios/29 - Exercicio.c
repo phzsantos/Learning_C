@@ -20,30 +20,30 @@ double Fatorial(double numero)
 	return fatorial;
 }
 
-double Seno(double* angulo)
+double SenoHiperbolico(double* angulo)
 {
 	int i;
-	double seno;
+	double seno_hiperbolico;
 
-	seno = 0;
+	seno_hiperbolico = 0;
 	for (i = 0; i < 6; i++)
 	{
-		seno += pow(-1.0, i) * pow((*angulo), 2*i+1) / Fatorial(2*i+1);
+		seno_hiperbolico += pow((*angulo), 2*i+1)/Fatorial(2*i+1);
 	}
 
-	return seno;
+	return seno_hiperbolico;
 }
 
 int main()
 {
-	double angulo, seno;
+	double angulo, seno_hiperbolico;
 
 	printf("Angulo: ");
 	scanf("%lf", &angulo);
 
-	seno = Seno(&angulo);
+	seno_hiperbolico = SenoHiperbolico(&angulo);
 
-	printf("Seno: %.2lf", seno);
+	printf("Seno Hiperbolico: %.2lf", seno_hiperbolico);
 
 	return 0;
 }
