@@ -4,7 +4,7 @@ void select_sort(int vetor[], int tamanho)
 {
     int menor, troca;
 
-    for (int i = 0; i < tamanho; i++)
+    for (int i = 0; i < tamanho - 1; i++)
     {
         menor = i;
         for (int j = i + 1; j < tamanho; j++)
