@@ -21,7 +21,7 @@ void menu();
 void cadastrarProduto();
 void listarProdutos();
 void comprarProduto();
-void vizualizarCarrinho();
+void visualizarCarrinho();
 Produto pegarProdutoPorCodigo(int codigo);
 int * temNoCarrinho(int codigo);
 void fecharPedido();
@@ -56,7 +56,7 @@ void menu()
     printf("2 - Listar Produtos\n");
     printf("3 - Comprar Produto\n");
     printf("4 - Visualizar carrinho\n");
-    printf("5 - Fechar Pedido\n")
+    printf("5 - Fechar Pedido\n");
     printf("6 - Sair\n");
     scanf("%d", &opcao);
     getchar();
@@ -73,13 +73,13 @@ void menu()
             comprarProduto();
             break;
         case 4:
-            vizualizarCarrinho();
+            visualizarCarrinho();
             break;
         case 5:
             fecharPedido();
             break;
         case 6:
-            printf("Volte sempre!\n")
+            printf("Volte sempre!\n");
             sleep(2);
             exit(0);
             break;
@@ -107,13 +107,16 @@ void cadastrarProduto()
     produtos[contador_produto].codigo = contador_produto + 1;
 
     contador_produto++;
+
+    sleep(2);
+    menu();
 }
 
 void listarProdutos()
 {
     if (contador_produto > 0)
     {
-        prinft("Produtos Cadastrados\n");
+        printf("Produtos Cadastrados\n");
         printf("=====================\n");
 
         for (int i = 0; i < contador_produto; i++)
@@ -122,10 +125,15 @@ void listarProdutos()
             printf("----------------------\n");
             sleep(1);
         }
+
+        sleep(2);
+        menu();
     }
     else
     {
         printf("Nenhum produto cadastrado\n");
+        sleep(2);
+        menu();
     }
 }
 
@@ -135,9 +143,16 @@ void comprarProduto()
     {
         int codigo;
 
-        listarProdutos();
+        printf("Produtos Cadastrados\n");
+        printf("=====================\n");
+        for (int i = 0; i < contador_produto; i++)
+        {
+            infoProduto(produtos[i]);
+            printf("----------------------\n");
+            sleep(1);
+        }
 
-        prinft("Informe o codigo do produto: \n");
+        printf("Informe o codigo do produto: \n");
         scanf("%d", &codigo);
         getchar();
 
@@ -158,18 +173,20 @@ void comprarProduto()
                     }
                     else
                     {
-                        carrinho[contador_carrinho].produto = pegarProdutoPorCodigo(codigo);
+                        Produto produto = pegarProdutoPorCodigo(codigo);
+                        carrinho[contador_carrinho].produto = produto;
                         carrinho[contador_carrinho].quantidade = 1;
                         contador_carrinho++;
-                        printf("Produto %s adicionado ao carrinho\n", strtok(carrinho[contador_carrinho].produto.nome, "\n"));
+                        printf("Produto %s adicionado ao carrinho\n", strtok(produto.nome, "\n"));
                     }
                 }
                 else
                 {
-                    carrinho[contador_carrinho].produto = pegarProdutoPorCodigo(codigo);
+                    Produto produto = pegarProdutoPorCodigo(codigo);
+                    carrinho[contador_carrinho].produto = produto;
                     carrinho[contador_carrinho].quantidade = 1;
                     contador_carrinho++;
-                    printf("Produto %s adicionado ao carrinho\n", strtok(carrinho[contador_carrinho].produto.nome, "\n"));
+                    printf("Produto %s adicionado ao carrinho\n", strtok(produto.nome, "\n"));
                 }
 
                 sleep(2);
@@ -196,7 +213,7 @@ void visualizarCarrinho()
 {
     if (contador_carrinho > 0)
     {
-        prinft("Produtos no Carrinho\n");
+        printf("Produtos no Carrinho\n");
         printf("=====================\n");
 
         for (int i = 0; i < contador_carrinho; i++)
@@ -206,10 +223,14 @@ void visualizarCarrinho()
             printf("----------------------\n");
             sleep(1);
         }
+        sleep(2);
+        menu();
     }
     else
     {
         printf("Nenhum produto no carrinho\n");
+        sleep(2);
+        menu();
     }
 }
 
@@ -251,14 +272,14 @@ void fecharPedido()
     {
         float valor_total = 0.0;
         
-        prinft("Produtos no Carrinho\n");
+        printf("Produtos no Carrinho\n");
         printf("=====================\n");
 
         for (int i = 0; i < contador_carrinho; i++)
         {
             Produto produto = carrinho[i].produto;
             int quantidade = carrinho[i].quantidade;
-            valor_total = produto.preco * quantidade;
+            valor_total += produto.preco * quantidade;
             
             infoProduto(produto);
             printf("Quantidade: %d\n", quantidade);
