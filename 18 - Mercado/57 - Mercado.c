@@ -131,7 +131,65 @@ void listarProdutos()
 
 void comprarProduto()
 {
+    if (contador_produto > 0)
+    {
+        int codigo;
 
+        listarProdutos();
+
+        prinft("Informe o codigo do produto: \n");
+        scanf("%d", &codigo);
+        getchar();
+
+        int tem_mercado = 0;
+        for (int i = 0; i < contador_produto; i++)
+        {
+            if (produtos[i].codigo == codigo)
+            {
+                tem_mercado = 1;
+                
+                if (contador_carrinho > 0)
+                {
+                    int * tem_carrinho = temNoCarrinho(codigo);
+                    if (tem_carrinho[0] == 1)
+                    {
+                        carrinho[tem_carrinho[1]].quantidade++;
+                        printf("Aumentei a quantidade do produto %s\n", strtok(produtos[i].nome, "\n"));
+                    }
+                    else
+                    {
+                        carrinho[contador_carrinho].produto = pegarProdutoPorCodigo(codigo);
+                        carrinho[contador_carrinho].quantidade = 1;
+                        contador_carrinho++;
+                        printf("Produto %s adicionado ao carrinho\n", strtok(carrinho[contador_carrinho].produto.nome, "\n"));
+                    }
+                }
+                else
+                {
+                    carrinho[contador_carrinho].produto = pegarProdutoPorCodigo(codigo);
+                    carrinho[contador_carrinho].quantidade = 1;
+                    contador_carrinho++;
+                    printf("Produto %s adicionado ao carrinho\n", strtok(carrinho[contador_carrinho].produto.nome, "\n"));
+                }
+
+                sleep(2);
+                menu();
+            }
+        }
+
+        if (tem_mercado == 0)
+        {
+            printf("Produto nao encontrado com codigo %d\n", codigo);
+            sleep(2);
+            menu();
+        }
+    }
+    else
+    {
+        printf("Nenhum produto cadastrado\n");
+        sleep(2);
+        menu();
+    }
 }
 
 void visualizarCarrinho()
