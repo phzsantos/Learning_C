@@ -114,7 +114,69 @@ void infoConta(Conta conta)
 
 void criarConta()
 {
+    Cliente cliente;
 
+    char dia[3];
+    char mes[3];
+    char ano[5];
+    char data_cadastro[20];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    if (tm.tm_day < 10)
+    {
+        sprintf(dia, "0%d", tm.tm_day);
+    }
+    else
+    {
+        sprintf(dia, "%d", tm.tm_day);
+    }
+
+    if ((tm.tm_mon + 1) < 10)
+    {
+        sprintf(mes, "0%d", tm.tm_mon + 1);
+    }
+    else
+    {
+        sprintf(mes, "%d", tm.tm_mon + 1);
+    }
+
+    sprintf(ano, "%d", tm.tm_year + 1900);
+
+    sprintf(data_cadastro, "%s/%s/%s", dia, mes, ano);
+
+    strcpy(cliente.dataCadastro, data_cadastro);
+
+    cliente.codigo = contador_clientes + 1;
+    
+    printf("Nome: ");
+    fgets(cliente.nome, 50, stdin);
+    
+    printf("Email: ");
+    fgets(cliente.email, 50, stdin);
+    
+    printf("CPF: ");
+    fgets(cliente.cpf, 20, stdin);
+
+    printf("Data de nascimento: ");
+    fgets(cliente.dataNascimento, 20, stdin);
+
+    contador_clientes++;
+
+    contas[contador_contas].numero = contador_contas + 1;
+    contas[contador_contas].cliente = cliente;
+    contas[contador_contas].saldo = 0;
+    contas[contador_contas].limite = 0;
+    contas[contador_contas].saldoTotal = atualizaSaldoTotal(contas[contador_contas]);
+
+    printf("Conta criada com sucesso!\n");
+    printf("Dados da conta:\n");
+    infoConta(contas[contador_contas]);
+
+    contador_contas++;
+
+    sleep(4);
+    menu();
 }
 
 float atualizaSaldoTotal(Conta conta)
@@ -237,20 +299,134 @@ void transferir(Conta conta_origem, Conta conta_destino, float valor)
 
 void listarContas()
 {
+    if (contador_contas > 0)
+    {
+        for (int i = 0; i < contador_contas; i++)
+        {
+            infoConta(contas[i]);
+            printf("\n");
+            sleep(1);
+        }
+    }
+    else
+    {
+        printf("Nenhuma conta cadastrada!\n");
+    }
 
+    sleep(2);
+    menu();
 }
 
 void efetuarSaque()
 {
+    if (contador_contas > 0)
+    {
+        int numero;
+        printf("Informe o número da conta: ");
+        scanf("%d", &numero);
+        getchar();
 
+        Conta conta = buscarContaPorNumero(numero);
+
+        if (conta.numero == numero)
+        {
+            float valor;
+
+            printf("Informe o valor do saque: ");
+            scanf("%f", &valor);
+
+            sacar(conta, valor);
+        }
+        else
+        {
+            printf("Conta não encontrada!\n");
+        }
+    }
+    else
+    {
+        printf("Nenhuma conta cadastrada!\n");
+    }
+
+    sleep(2);
+    menu();
 }
 
 void efetuarDeposito()
 {
+    if (contador_contas > 0)
+    {
+        int numero;
+        printf("Informe o número da conta: ");
+        scanf("%d", &numero);
+        getchar();
 
+        Conta conta = buscarContaPorNumero(numero);
+
+        if (conta.numero == numero)
+        {
+            float valor;
+
+            printf("Informe o valor do deposito: ");
+            scanf("%f", &valor);
+
+            depositar(conta, valor);
+        }
+        else
+        {
+            printf("Conta não encontrada!\n");
+        }
+    }
+    else
+    {
+        printf("Nenhuma conta cadastrada!\n");
+    }
+
+    sleep(2);
+    menu();
 }
 
 void efetuarTransferencia()
 {
+    if (contador_contas > 0)
+    {
+        int numero, numero_destino;
 
+        printf("Informe o número da conta de origem: ");
+        scanf("%d", &numero);
+
+        Conta conta_origem = buscarContaPorNumero(numero);
+
+        if (conta_origem.numero == numero)
+        {
+            printf("Informe o número da conta de destino: ");
+            scanf("%d", &numero_destino);
+
+            Conta conta_destino = buscarContaPorNumero(numero_destino);
+
+            if (conta_destino.numero == numero_destino)
+            {
+                float valor;
+
+                printf("Informe o valor da transferência: ");
+                scanf("%f", &valor);
+
+                transferir(conta_origem, conta_destino, valor);
+            }
+            else
+            {
+                printf("Conta de destino não encontrada!\n");
+            }
+        }
+        else
+        {
+            printf("Conta de origem não encontrada!\n");
+        }
+    }
+    else
+    {
+        printf("Nenhuma conta cadastrada!\n");
+    }
+
+    sleep(2);
+    menu();
 }
