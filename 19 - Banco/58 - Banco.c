@@ -123,13 +123,13 @@ void criarConta()
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    if (tm.tm_day < 10)
+    if (tm.tm_mday < 10)
     {
-        sprintf(dia, "0%d", tm.tm_day);
+        sprintf(dia, "0%d", tm.tm_mday);
     }
     else
     {
-        sprintf(dia, "%d", tm.tm_day);
+        sprintf(dia, "%d", tm.tm_mday);
     }
 
     if ((tm.tm_mon + 1) < 10)
